@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
@@ -12,7 +12,7 @@ const Header = ({ currentUser }) => {
     </div>
   ) : (
     <Link className="option" to="/sign-in">
-      S I G N I N
+      SIGNIN
     </Link>
   );
   return (
@@ -22,10 +22,10 @@ const Header = ({ currentUser }) => {
       </Link>
       <div className="options">
         <Link className="option" to="/shop">
-          S H O P
+          SHOP
         </Link>
         <Link className="option" to="/contact">
-          C O N T A C T
+          CONTACT
         </Link>
         {toggleSignInOut}
       </div>
