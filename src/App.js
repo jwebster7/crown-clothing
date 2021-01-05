@@ -7,10 +7,7 @@ import HomePage from "./pages/home/home.component";
 import ShopPage from "./pages/shop/shop.component";
 import SignInSignUp from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 
-import {
-  auth,
-  createUserProfileDocument,
-} from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 function App() {
   const [user, setUser] = useState({});
@@ -36,6 +33,9 @@ function App() {
       }
     });
   }, []);
+
+  // TODO: remove this
+  useEffect(() => console.log(user), [user]);
 
   // this might break auth
   // useEffect(() => {
