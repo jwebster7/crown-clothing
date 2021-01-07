@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
@@ -15,6 +15,7 @@ const Header = ({ currentUser }) => {
       SIGNIN
     </Link>
   );
+
   return (
     <div className="header">
       <Link to="/">

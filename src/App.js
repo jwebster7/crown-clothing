@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import { setCurrentUser } from "./redux/user/user.actions";
 
@@ -13,13 +13,14 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import "./App.css";
 
-function App({ setCurrentUser }) {
+function App({ currentUser, setCurrentUser }) {
   var unsubscribeFromAuth = () => null;
 
   useEffect(() => {
     // this is an open subscription.
     // a messaging system between this app and firebase.
     // when the auth state changes, firebase will update the authstate.
+    // unsubscribeFromAuth = auth.onAuthStateChanged
     unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -36,9 +37,10 @@ function App({ setCurrentUser }) {
     });
   }, []);
 
+  // need to find the hook equivalent of componentWillUnmount().
   useEffect(() => {
     return () => unsubscribeFromAuth();
-  }, [unsubscribeFromAuth]);
+  }, []);
 
   return (
     <div>
@@ -46,16 +48,24 @@ function App({ setCurrentUser }) {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
-        <Route path="/sign-in" component={SignInSignUp} />
+        <Route
+          path="/sign-in"
+          render={() => (currentUser ? <Redirect to="/" /> : <SignInSignUp />)}
+        />
       </Switch>
     </div>
   );
 }
 
+// used for mapping state to props
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+// used for distributing actions by mapping actions to props
 const mapDispatchToProps = (dispatch) => ({
   // dispatch receives the action object and passes it to every reducer
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-// connect(stateToProps, dispatchToProps)
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
