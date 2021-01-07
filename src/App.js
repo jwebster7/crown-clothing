@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+
+import { setCurrentUser } from "./redux/user/user.actions";
 
 import Header from "./components/header/header.component";
 import HomePage from "./pages/home/home.component";
@@ -9,9 +11,9 @@ import SignInSignUp from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
-function App() {
-  const [user, setUser] = useState({});
+import "./App.css";
 
+function App({ setCurrentUser }) {
   var unsubscribeFromAuth = () => null;
 
   useEffect(() => {
@@ -23,37 +25,37 @@ function App() {
         const userRef = await createUserProfileDocument(userAuth);
         // subscribe to the userRef for any changes to the db
         userRef.onSnapshot((snapShot) => {
-          setUser({
+          setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
           });
         });
       } else {
-        setUser(userAuth);
+        setCurrentUser(userAuth);
       }
     });
   }, []);
 
-  // TODO: remove this
-  useEffect(() => console.log(user), [user]);
-
-  // this might break auth
-  // useEffect(() => {
-  //   console.log(user);
-  //   return () => unsubscribeFromAuth();
-  // }, [user, unsubscribeFromAuth]);
+  useEffect(() => {
+    return () => unsubscribeFromAuth();
+  }, [unsubscribeFromAuth]);
 
   return (
     <div>
-      <Header currentUser={user} />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
         <Route path="/sign-in" component={SignInSignUp} />
       </Switch>
-      {/* {auth.currentUser ? auth.currentUser.email : ''} */}
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  // dispatch receives the action object and passes it to every reducer
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+// connect(stateToProps, dispatchToProps)
+export default connect(null, mapDispatchToProps)(App);
