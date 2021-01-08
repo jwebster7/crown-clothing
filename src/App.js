@@ -14,14 +14,14 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import "./App.css";
 
 function App({ currentUser, setCurrentUser }) {
-  var unsubscribeFromAuth = () => null;
+  // const unsubscribeFromAuth;
 
   useEffect(() => {
     // this is an open subscription.
     // a messaging system between this app and firebase.
     // when the auth state changes, firebase will update the authstate.
     // unsubscribeFromAuth = auth.onAuthStateChanged
-    unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         // subscribe to the userRef for any changes to the db
@@ -35,12 +35,12 @@ function App({ currentUser, setCurrentUser }) {
         setCurrentUser(userAuth);
       }
     });
-  }, []);
+  }, [setCurrentUser]);
 
   // need to find the hook equivalent of componentWillUnmount().
-  useEffect(() => {
-    return () => unsubscribeFromAuth();
-  }, []);
+  // useEffect(() => {
+  //   return () => unsubscribeFromAuth();
+  // });
 
   return (
     <div>

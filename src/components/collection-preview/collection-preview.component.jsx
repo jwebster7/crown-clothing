@@ -7,8 +7,8 @@ import "./collection-preview.styles.scss";
 const CollectionPreview = ({ title, items }) => {
   const collection = items
     .filter((item, index) => index < 4)
-    .map(({ id, ...otherItemProps }) => {
-      return <CollectionItem key={id} {...otherItemProps} />;
+    .map((item) => {
+      return <CollectionItem key={item.id} item={item} />;
     });
 
   return (

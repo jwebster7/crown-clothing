@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -30,7 +30,10 @@ const SignUp = () => {
       alert("Passwords don't match!");
     } else {
       try {
-        const { user } = await auth.createUserWithEmailAndPassword(email, password);
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
         await createUserProfileDocument(user, { displayName });
         setState(initialState);
       } catch (error) {

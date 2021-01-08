@@ -7,3 +7,12 @@ export const toggleCartHidden = () => {
 
   return action;
 };
+
+export const addCartItem = (item) => {
+  const action = {
+    type: CartActionTypes.ADD_CART_ITEM,
+    payload: item,
+  };
+
+  return action;
+};
