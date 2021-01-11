@@ -13,8 +13,8 @@ import {
 import "./checkout.styles.scss";
 
 const CheckoutPage = ({ cartItems, total }) => {
-  const cartItemDisplay = cartItems.map((cartItem) => (
-    <CheckoutItem cartItem={cartItem} key={cartItem.id} />
+  const checkoutItemsDisplay = cartItems.map((cartItem, index) => (
+    <CheckoutItem cartItem={cartItem} key={index} />
   ));
   return (
     <div className="checkout-page">
@@ -35,7 +35,7 @@ const CheckoutPage = ({ cartItems, total }) => {
           <span>REMOVE</span>
         </div>
       </div>
-      {cartItemDisplay}
+      {checkoutItemsDisplay}
       <div className="total">
         <span>TOTAL: ${total}</span>
       </div>
