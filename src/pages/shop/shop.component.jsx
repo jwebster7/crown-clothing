@@ -1,19 +1,18 @@
-// import React, { useState } from "react";
 import React from "react";
+import { Route } from "react-router-dom";
 
-import CollectionPreview from "../../components/collection-preview/collection-preview.component";
+import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
+import CollectionPage from "../collection/collection.component";
 
-import SHOP_DATA from "./shop.data";
-
-const ShopPage = () => {
-  // const [collections, setCollections] = useState(SHOP_DATA);
-  const collections = SHOP_DATA;
-
-  const collectionPreview = collections.map(({ id, ...otherProps }) => (
-    <CollectionPreview key={id} {...otherProps} />
-  ));
-
-  return <div className="shop-page">{collectionPreview}</div>;
+// match, location, and history are automatically passed into components nested in a Route.
+const ShopPage = ({ match }) => {
+  return (
+    <div className="shop-page">
+      <Route exact path={`${match.path}`} component={CollectionsOverview} />
+      {/* /:collectionId = parameter to "match" for our category page different categories */}
+      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
+    </div>
+  );
 };
 
 export default ShopPage;
