@@ -6,7 +6,7 @@ import { selectCollectionsForPreview } from "../../redux/shop/shop.selectors";
 
 import CollectionPreview from "../collection-preview/collection-preview.component";
 
-import "./collections-overview.styles.scss";
+import { CollectionsOverviewContainer } from "./collections-overview.styles";
 
 const CollectionsOverview = ({ collections }) => {
   console.log(collections);
@@ -14,7 +14,9 @@ const CollectionsOverview = ({ collections }) => {
     <CollectionPreview key={id} {...otherProps} />
   ));
   return (
-    <div className="collections-overview">{collectionsPreviewDisplay}</div>
+    <CollectionsOverviewContainer>
+      {collectionsPreviewDisplay}
+    </CollectionsOverviewContainer>
   );
 };
 
