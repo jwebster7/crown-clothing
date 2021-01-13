@@ -11,36 +11,42 @@ import {
   selectCartTotalPrice
 } from "../../redux/cart/cart.selectors";
 
-import "./checkout.styles.scss";
+import {
+  CheckoutPageContainer,
+  CheckoutHeaderContainer,
+  HeaderBlockContainer,
+  TotalContainer,
+  WarningContainer
+} from "./checkout.styles";
 
 const CheckoutPage = ({ cartItems, total }) => {
   const checkoutItemsDisplay = cartItems.map((cartItem, index) => (
     <CheckoutItem cartItem={cartItem} key={index} />
   ));
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutPageContainer>
+      <CheckoutHeaderContainer>
+        <HeaderBlockContainer>
           <span>PRODUCT</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>DESCRIPTION</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>QUANTITY</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>PRICE</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>REMOVE</span>
-        </div>
-      </div>
+        </HeaderBlockContainer>
+      </CheckoutHeaderContainer>
       {checkoutItemsDisplay}
-      <div className="total">
+      <TotalContainer>
         <span>TOTAL: ${total}</span>
-      </div>
-      <div className="test-warning">
+      </TotalContainer>
+      <WarningContainer>
         * Please use the following test credit card for payment
         <br />
         Number: 4242 4242 4242 4242 | Exp. Date: Any three numbers | CVC: Any
@@ -48,9 +54,9 @@ const CheckoutPage = ({ cartItems, total }) => {
         <br />
         See the Stripe documentation for further details:{" "}
         <a href="https://stripe.com/docs/testing#cards">Stripe Testing Cards</a>
-      </div>
+      </WarningContainer>
       <StripeButton price={total} />
-    </div>
+    </CheckoutPageContainer>
   );
 };
 
