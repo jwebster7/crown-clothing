@@ -9,7 +9,7 @@ import CollectionPreview from "../collection-preview/collection-preview.componen
 import { CollectionsOverviewContainer } from "./collections-overview.styles";
 
 const CollectionsOverview = ({ collections }) => {
-  console.log(collections);
+  // console.log(collections);
   const collectionsPreviewDisplay = collections.map(({ id, ...otherProps }) => (
     <CollectionPreview key={id} {...otherProps} />
   ));
