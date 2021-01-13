@@ -20,13 +20,30 @@ const ShopPage = ({ match, updateCollections }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const collectionRef = firestore.collection("collections");
-    collectionRef.onSnapshot(async (snapShot) => {
-      // console.log(snapShot.forEach((doc) => console.log(doc.data())));
+
+    // using the Promise Pattern
+    collectionRef.get().then((snapShot) => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
-      console.log(collectionsMap);
       updateCollections(collectionsMap);
       setLoading(false);
     });
+
+    // using the Observable Pattern
+    // collectionRef.onSnapshot(async (snapShot) => {
+    //   // console.log(snapShot.forEach((doc) => console.log(doc.data())));
+    //   const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
+    //   console.log(collectionsMap);
+    //   updateCollections(collectionsMap);
+    //   setLoading(false);
+    // });
+
+    // using the Fetch method (accessing API directly via REST calls)
+    // https://firestore.googleapis.com/v1/projects/crown-db-ebd4a/databases/(default)/documents
+    // fetch(
+    //   "https://firestore.googleapis.com/v1/projects/crown-db-ebd4a/databases/(default)/documents/collections"
+    // )
+    //   .then((response) => response.json())
+    //   .then((collections) => console.log(collections));
   });
 
   return (
