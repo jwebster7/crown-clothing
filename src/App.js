@@ -34,9 +34,8 @@ function App({ currentUser, setCurrentUser }) {
             ...snapShot.data()
           });
         });
-      } else {
-        setCurrentUser(userAuth);
       }
+      setCurrentUser(userAuth);
     });
   }, [setCurrentUser]);
 
