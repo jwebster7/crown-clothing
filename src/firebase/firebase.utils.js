@@ -27,16 +27,13 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   //  CRUD:   create  retrieve  update    delete
   //  Method: set()   get()     update()  delete()
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-  const collectionRef = firestore.collection("users");
+  // const collectionRef = firestore.collection("users");
 
   // when .get() is called on a reference obj, it returns a snapShot.
   // reference objects may be document or collection references.
   // in this case, a snapShot of a documentRef known as a documentSnapshot is returned from get().
   const snapShot = await userRef.get();
-  const collectionSnapShot = await collectionRef.get();
-
-  // console.log(snapShot.data());
-  // collectionSnapShot.forEach((document) => console.log(document.data()));
+  // const collectionSnapShot = await collectionRef.get();
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
