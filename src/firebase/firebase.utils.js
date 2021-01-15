@@ -19,9 +19,8 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-// creates a user profile document in the firestore using the UID provided by google auth.
+// creates a user profile document in the firestore
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-  // console.log(userAuth);
   if (!userAuth) return;
   // document references are used for executing CRUD operations via their methods.
   //  CRUD:   create  retrieve  update    delete
@@ -83,14 +82,22 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   }, {});
-
 };
 
-const provider = new firebase.auth.GoogleAuthProvider();
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 const customParams = {
   prompt: "select_account"
 };
-provider.setCustomParameters(customParams);
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+googleProvider.setCustomParameters(customParams);
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

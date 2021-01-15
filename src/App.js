@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
+// import React from "react";
+
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
+import { checkUserSession } from "./redux/user/user.actions";
 
 import Header from "./components/header/header.component";
 import HomePage from "./pages/home/home.component";
@@ -12,32 +14,31 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInSignUp from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-
 import "./App.css";
 
-function App({ currentUser, setCurrentUser }) {
+function App({ currentUser, checkUserSession }) {
   // const unsubscribeFromAuth;
 
   useEffect(() => {
+    checkUserSession();
     // this is an open subscription.
     // a messaging system between this app and firebase.
     // when the auth state changes, firebase will update the authstate.
     // unsubscribeFromAuth = auth.onAuthStateChanged
-    auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        // subscribe to the userRef for any changes to the db
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      }
-      setCurrentUser(userAuth);
-    });
-  }, [setCurrentUser]);
+    // auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
+    //     // subscribe to the userRef for any changes to the db
+    //     userRef.onSnapshot((snapShot) => {
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data()
+    //       });
+    //     });
+    //   }
+    //   setCurrentUser(userAuth);
+    //   });
+  }, [checkUserSession]);
 
   // need to find the hook equivalent of componentWillUnmount().
   // useEffect(() => {
@@ -68,7 +69,7 @@ const mapStateToProps = createStructuredSelector({
 // used for distributing actions by mapping actions to props
 const mapDispatchToProps = (dispatch) => ({
   // dispatch receives the action object and passes it to every reducer
-  setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  checkUserSession: (user) => dispatch(checkUserSession())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
