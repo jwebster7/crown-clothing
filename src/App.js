@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import React from "react";
 
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -21,29 +20,7 @@ function App({ currentUser, checkUserSession }) {
 
   useEffect(() => {
     checkUserSession();
-    // this is an open subscription.
-    // a messaging system between this app and firebase.
-    // when the auth state changes, firebase will update the authstate.
-    // unsubscribeFromAuth = auth.onAuthStateChanged
-    // auth.onAuthStateChanged(async (userAuth) => {
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-    //     // subscribe to the userRef for any changes to the db
-    //     userRef.onSnapshot((snapShot) => {
-    //       setCurrentUser({
-    //         id: snapShot.id,
-    //         ...snapShot.data()
-    //       });
-    //     });
-    //   }
-    //   setCurrentUser(userAuth);
-    //   });
   }, [checkUserSession]);
-
-  // need to find the hook equivalent of componentWillUnmount().
-  // useEffect(() => {
-  //   return () => unsubscribeFromAuth();
-  // });
 
   return (
     <div>
@@ -69,7 +46,7 @@ const mapStateToProps = createStructuredSelector({
 // used for distributing actions by mapping actions to props
 const mapDispatchToProps = (dispatch) => ({
   // dispatch receives the action object and passes it to every reducer
-  checkUserSession: (user) => dispatch(checkUserSession())
+  checkUserSession: () => dispatch(checkUserSession())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

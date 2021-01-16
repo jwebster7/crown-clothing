@@ -4,15 +4,13 @@ import { Route } from "react-router-dom";
 
 import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
-import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
+import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
 import CollectionPageContainer from "../collection/collection.container";
 
 // match, location, and history are automatically passed into components nested in a Route.
-const ShopPage = (props) => {
-  const { match, fetchCollectionsStart } = props;
+const ShopPage = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
     fetchCollectionsStart();
-    // console.log('IN SHOP COMPONENT');
   }, [fetchCollectionsStart]);
 
   return (

@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+// react-redux now has a useSelector hook
 
 // selectors are a way to implement memoization and improves performance by reducing unnecessary re-renders
 
