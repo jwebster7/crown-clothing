@@ -14,6 +14,7 @@ const port = process.env.PORT || 5000; // if PORT is defined in .env use that, o
 
 app.use(bodyParser.json()); // any responses from http requests will be in JSON format.
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors()); // allows the server to accept requests from other origins (ex. from port 3000)
 
 if (process.env.NODE_ENV === "production") {
