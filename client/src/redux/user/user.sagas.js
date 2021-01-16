@@ -35,7 +35,7 @@ export function* getSnapShotFromUser(userAuth, additionalData) {
 }
 
 export function* signUpWithEmail(userCredentials) {
-  console.log("in the sign up with email function");
+  // console.log("in the sign up with email function");
   try {
     const { email, displayName, password } = userCredentials.payload;
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
