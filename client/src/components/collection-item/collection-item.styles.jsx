@@ -53,10 +53,15 @@ export const CollectionFooterContainer = styled.div`
 export const NameContainer = styled.div`
   width: 90%;
   margin-bottom: 15px;
+  margin: 0 auto 15px 0;
+  /* @media screen and (max-width: 800px) {
+    width: 70%;
+  } */
 `;
 
 export const PriceContainer = styled.div`
-  width: 10%;
+  width: 15%;
+  text-align: right;
 `;
 
 export const CustomButtonContainer = styled.button`

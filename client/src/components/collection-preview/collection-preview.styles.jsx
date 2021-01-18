@@ -17,23 +17,26 @@ import styled from "styled-components";
 // }
 
 export const CollectionPreviewContainer = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 30px; */
 
   @media screen and (max-width: 800px) {
     align-items: center;
   }
 `;
 
-export const TitleContainer = styled.h1`
-  font-size: 28px;
-  margin-bottom: 25px;
+export const TitleContainer = styled.h2`
+  font-size: 30px;
+  margin-bottom: 30px;
+  text-align: center;
 `;
 
 export const PreviewContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
+  justify-items: center;
 
   @media screen and (max-width: 800px) {
     display: grid;
