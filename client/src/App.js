@@ -13,7 +13,8 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInSignUp from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
-import "./App.css";
+// import "./App.css";
+import { GlobalStyle } from "./global.styles";
 
 function App({ currentUser, checkUserSession }) {
   // const unsubscribeFromAuth;
@@ -24,6 +25,7 @@ function App({ currentUser, checkUserSession }) {
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
