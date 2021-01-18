@@ -18,7 +18,7 @@ const CollectionPage = ({ collection }) => {
   ));
   return (
     <CollectionPageContainer>
-      <CollectionTitle>{title}</CollectionTitle>
+      <CollectionTitle>{title.toUpperCase()}</CollectionTitle>
       <CollectionItemsContainer>{itemsDisplay}</CollectionItemsContainer>
     </CollectionPageContainer>
   );
