@@ -2,6 +2,7 @@ const express = require("express"); // similar to import statement
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+const compression = require("compression");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -12,6 +13,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const port = process.env.PORT || 5000; // if PORT is defined in .env use that, otherwise 5000
 
+app.use(compression());
 app.use(bodyParser.json()); // any responses from http requests will be in JSON format.
 app.use(bodyParser.urlencoded({ extended: true }));
 
