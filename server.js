@@ -14,14 +14,14 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const port = process.env.PORT || 5000; // if PORT is defined in .env use that, otherwise 5000
 
-app.use(compression());
 app.use(bodyParser.json()); // any responses from http requests will be in JSON format.
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(cors()); // allows the server to accept requests from other origins (ex. from port 3000)
 
 if (process.env.NODE_ENV === "production") {
+  app.use(compression());
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
   // allows the BE app to serve static files from the client build directory
   app.use(express.static(path.join(__dirname, "client/build")));
 
@@ -39,8 +39,8 @@ app.listen(port, (error) => {
   console.log("Server running on port: " + port);
 });
 
-app.get("/serviceWorker.js", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "..", "build", "serviceWorker.js"));
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
 });
 
 app.post("/payment", (req, res) => {
