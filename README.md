@@ -7,3 +7,6 @@ I built this using React's Functional Components instead of Class Components bec
 
 ### Back End
 The Back End uses Firebase's Firestore and Authentication services. I also have a server built with NodeJS + Express that handles payments through a test-mode of Stripe. This server also sets up some of the necessary environment configurations.
+
+### PWA 
+This is also a Progressive Web App. However, not all functionality with the service worker and cache API has been setup so it still requires internet connection.
